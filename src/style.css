@@ -1,7 +1,9 @@
 #game {
     display: grid;
-    grid-template-columns: repeat(10, 40px);
     gap: 2px;
+    background: #777;
+    padding: 2px;
+    width: fit-content;
 }
 
 .cell {
@@ -12,4 +14,10 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    user-select: none;
+}
+
+.cell.revealed {
+    background: #eee;
+    cursor: default;
 }
