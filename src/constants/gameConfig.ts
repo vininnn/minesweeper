@@ -22,8 +22,8 @@ export const DifficultConfigs: Record<DifficultLevel, DifficultSettings> = {
         bombCount: 40,
     },
     [DifficultLevel.EXPERT]: {
-        rows: 30,
-        columns: 16,
+        rows: 16,
+        columns: 30,
         bombCount: 99,
     }
 }
