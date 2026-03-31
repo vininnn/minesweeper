@@ -1,68 +1,86 @@
 import './style.css'
-import { DifficultConfigs, DifficultLevel } from "./constants/gameConfig.ts";
+import {DifficultConfigs, DifficultLevel, type DifficultSettings} from "./constants/gameConfig.ts";
 import { createBoard } from "./core/boardGenerator.ts";
 import { plantBombs } from "./utils/bombGenerator.ts";
-import {checkWin, revealAllBombs, revealEmptyCells, toggleFlag} from "./core/gameLogic.ts";
+import { checkWin, revealAllBombs, revealEmptyCells, toggleFlag } from "./core/gameLogic.ts";
+import type { Cell } from "./types/cell.ts";
 
 const gameContainer = document.getElementById("game")!;
-const diffConfig = DifficultConfigs[DifficultLevel.BEGINNER];
-const board = createBoard(diffConfig);
-const cellElements: HTMLElement[][] = [];
+const resetButton = document.getElementById("reset")!;
+const diffSelected = document.getElementById("gameDifficult") as HTMLSelectElement;
 
+let board: Cell[][] = [];
+let cellElements: HTMLElement[][] = [];
 let isGameStarted = false;
 let isGameOver = false;
+let currentDiff: DifficultSettings;
 
-gameContainer.style.gridTemplateColumns = `repeat(${diffConfig.columns}, 40px)`
-gameContainer.innerHTML = "";
+function createGame(){
+    const selectedDiff = diffSelected.value as DifficultLevel;
+    currentDiff = DifficultConfigs[selectedDiff];
 
-board.forEach((row, rowIndex) => {
-    const elementRow: HTMLElement[] = [];
-    row.forEach((cellData, columnIndex) => {
-        const cellElement = document.createElement("div");
-        cellElement.classList.add("cell");
+    isGameStarted = false;
+    isGameOver = false;
+    board = createBoard(currentDiff);
+    cellElements = [];
 
-        gameContainer.appendChild(cellElement)
-        elementRow.push(cellElement);
+    gameContainer.style.gridTemplateColumns = `repeat(${currentDiff.columns}, 40px)`
+    gameContainer.innerHTML = "";
 
-        // Left click logic
-        cellElement.addEventListener("click", () => {
-            if (isGameOver) return;
+    renderGameLogic();
+}
 
-            if (!isGameStarted) {
-                plantBombs(board, rowIndex, columnIndex, diffConfig.bombCount);
-                isGameStarted = true;
-            }
+function renderGameLogic() {
+    board.forEach((row, rowIndex) => {
+        const elementRow: HTMLElement[] = [];
+        row.forEach((cellData, columnIndex) => {
+            const cellElement = document.createElement("div");
+            cellElement.classList.add("cell");
 
-            const clickedCell = board[rowIndex][columnIndex];
-            if (clickedCell.isRevealed || clickedCell.isFlagged) return;
-            // Lose
-            if (clickedCell.isBomb) {
-                clickedCell.isRevealed = true;
-                isGameOver = true;
-                revealAllBombs(board);
-                updateUI()
-                setTimeout(() => alert("Not this time... Try again!"), 100);
-            } else {
-                revealEmptyCells(board, rowIndex, columnIndex);
-                updateUI();
-                // Check win
-                if (checkWin(board, diffConfig.bombCount)) {
-                    isGameOver = true;
-                    setTimeout(() => alert("Congratulations! You Win!"), 100);
+            gameContainer.appendChild(cellElement)
+            elementRow.push(cellElement);
+
+            // Left click logic
+            cellElement.addEventListener("click", () => {
+                if (isGameOver) return;
+
+                if (!isGameStarted) {
+                    plantBombs(board, rowIndex, columnIndex, currentDiff.bombCount);
+                    isGameStarted = true;
                 }
-            }
-        })
-        cellElement.addEventListener("contextmenu", (e) => {
-            e.preventDefault(); // Prevents opening the OS menu.
 
-            if (isGameOver || !isGameStarted) return;
+                const clickedCell = board[rowIndex][columnIndex];
+                if (clickedCell.isRevealed || clickedCell.isFlagged) return;
+                // Lose
+                if (clickedCell.isBomb) {
+                    clickedCell.isRevealed = true;
+                    isGameOver = true;
+                    revealAllBombs(board);
+                    updateUI()
+                    setTimeout(() => alert("Not this time... Try again!"), 100);
+                } else {
+                    revealEmptyCells(board, rowIndex, columnIndex);
+                    updateUI();
+                    // Check win
+                    if (checkWin(board, currentDiff.bombCount)) {
+                        isGameOver = true;
+                        setTimeout(() => alert("Congratulations! You Win!"), 100);
+                    }
+                }
+            })
+            // Right click logic / Flag logic
+            cellElement.addEventListener("contextmenu", (e) => {
+                e.preventDefault(); // Prevents opening the OS menu.
 
-            toggleFlag(cellData);
-            updateUI();
+                if (isGameOver || !isGameStarted) return;
+
+                toggleFlag(cellData);
+                updateUI();
+            })
         })
+        cellElements.push(elementRow);
     })
-    cellElements.push(elementRow);
-})
+}
 
 function updateUI() {
     board.forEach((row, r) => {
@@ -92,3 +110,8 @@ function updateUI() {
         })
     })
 }
+
+resetButton.addEventListener("click", createGame);
+diffSelected.addEventListener("change", createGame)
+
+createGame();

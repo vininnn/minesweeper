@@ -7,6 +7,18 @@
     <title>minesweeper</title>
   </head>
   <body>
+    <div class="gameButtons">
+      <button id="reset">Reset</button>
+
+      <label for="gameDifficult">Difficult:</label>
+      <select id="gameDifficult">
+        <option value="BEGINNER">Beginner</option>
+        <option value="INTERMEDIATE">Intermediate</option>
+        <option value="EXPERT">Expert</option>
+      </select>
+    </div>
+    <div id="availableFlags"></div>
+    <div class="timer"></div>
     <div id="game"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
