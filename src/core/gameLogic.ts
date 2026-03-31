@@ -44,3 +44,19 @@ export function revealAllBombs(board: Cell[][]) {
         }
     }
 }
+
+// Win Condition
+export function checkWin(board: Cell[][], totalBombs: number): boolean {
+    let revealedCells = 0;
+    const totalCells = board.length * board[0].length;
+
+    for (let r = 0; r < board.length; r++) {
+        for (let c = 0; c < board[0].length; c++) {
+            if (board[r][c].isRevealed) {
+                revealedCells++;
+            }
+        }
+    }
+
+    return revealedCells === totalCells - totalBombs;
+}

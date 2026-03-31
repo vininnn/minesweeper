@@ -2,7 +2,7 @@ import './style.css'
 import { DifficultConfigs, DifficultLevel } from "./constants/gameConfig.ts";
 import { createBoard } from "./core/boardGenerator.ts";
 import { plantBombs } from "./utils/bombGenerator.ts";
-import {revealAllBombs, revealEmptyCells, toggleFlag} from "./core/gameLogic.ts";
+import {checkWin, revealAllBombs, revealEmptyCells, toggleFlag} from "./core/gameLogic.ts";
 
 const gameContainer = document.getElementById("game")!;
 const diffConfig = DifficultConfigs[DifficultLevel.BEGINNER];
@@ -24,6 +24,7 @@ board.forEach((row, rowIndex) => {
         gameContainer.appendChild(cellElement)
         elementRow.push(cellElement);
 
+        // Left click logic
         cellElement.addEventListener("click", () => {
             if (isGameOver) return;
 
@@ -34,15 +35,22 @@ board.forEach((row, rowIndex) => {
 
             const clickedCell = board[rowIndex][columnIndex];
             if (clickedCell.isRevealed || clickedCell.isFlagged) return;
+            // Lose
             if (clickedCell.isBomb) {
                 clickedCell.isRevealed = true;
                 isGameOver = true;
                 revealAllBombs(board);
+                updateUI()
+                setTimeout(() => alert("Not this time... Try again!"), 100);
             } else {
                 revealEmptyCells(board, rowIndex, columnIndex);
+                updateUI();
+                // Check win
+                if (checkWin(board, diffConfig.bombCount)) {
+                    isGameOver = true;
+                    setTimeout(() => alert("Congratulations! You Win!"), 100);
+                }
             }
-
-            updateUI();
         })
         cellElement.addEventListener("contextmenu", (e) => {
             e.preventDefault(); // Prevents opening the OS menu.
@@ -60,6 +68,7 @@ function updateUI() {
     board.forEach((row, r) => {
         row.forEach((cell, c) => {
             const element = cellElements[r][c];
+
             if (cell.isRevealed) {
                 element.classList.add("revealed");
                 if (cell.isBomb) {
@@ -69,7 +78,14 @@ function updateUI() {
                     element.textContent = cell.count > 0 ? cell.count.toString() : "";
                 }
             } else if (cell.isFlagged) {
-                element.textContent = "F";
+                // Lose and put a wrong flag
+                if (isGameOver && !cell.isBomb) {
+                    element.textContent = "not F";
+                    element.style.background = "yellow"
+                }
+                else {
+                    element.textContent = "F";
+                }
             } else {
                 element.textContent = ""; // Clear flag
             }
