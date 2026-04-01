@@ -26,6 +26,7 @@ let timeInterval: number | null = null;
 let remainingFlags = 0;
 
 function createGame(){
+    stopTimer();
     secondsElapsed = 0;
     timerElement!.textContent = "000"
 
