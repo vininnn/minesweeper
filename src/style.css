@@ -1,23 +1,127 @@
-#game {
-    display: grid;
-    gap: 2px;
-    background: #777;
-    padding: 2px;
-    width: fit-content;
+:root {
+    /* Color Theme Swatches in Hex */
+    --bg-dark: #1A2126; /*Dark tone*/
+    --shadow-dark: #353C40; /*Dark tone*/
+    --panel-gray: #878A8C; /*Medium tone*/
+    --white-highlight: #F2F2F2; /*Light tone*/
+    --light-gray :#D9D9D9; /*Light tone*/
+
+    /*Number Colors*/
+    --num-1: #0000ff;
+    --num-2: #008000;
+    --num-3: #ff0000;
+    --num-4: #000080;
+    --num-5: #800000;
+    --num-6: #008080;
+    --num-7: #000000;
+    --num-8: #808080;
 }
 
-.cell {
-    width: 40px;
-    height: 40px;
-    background: #ccc;
+body {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    min-height: 100vh;
+    background-color: var(--bg-dark);
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.game-buttons {
+    margin-bottom: 20px;
+    color: var(--white-highlight);
+}
+
+.main-container {
+    background-color: var(--panel-gray);
+    padding: 12px;
+    border-top: 4px solid var(--white-highlight);
+    border-left: 4px solid var(--white-highlight);
+    border-right: 4px solid var(--shadow-dark);
+    border-bottom: 4px solid var(--shadow-dark);
     user-select: none;
 }
 
+.status-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 4px solid;
+    border-color: var(--shadow-dark) var(--white-highlight) var(--white-highlight) var(--shadow-dark);
+}
+
+.led-display {
+    background-color: black;
+    color: red;
+    font-family: "Courier New", monospace;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border: 2px inset var(--shadow-dark);
+    min-width: 60px;
+    text-align: right;
+}
+
+#reset {
+    width: 45px;
+    height: 45px;
+    background-color: var(--panel-gray);
+    border: 4px outset var(--white-highlight);
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+#reset:active {
+    border: 4px inset var(--white-highlight);
+}
+
+#game-border {
+    border: 4px solid;
+    border-color: var(--shadow-dark) var(--white-highlight) var(--white-highlight) var(--shadow-dark);
+}
+
+#game {
+    display: grid;
+    background-color: var(--shadow-dark);
+    gap: 1px;
+}
+
+.cell {
+    width: 35px;
+    height: 35px;
+    background: var(--panel-gray);
+    border: 4px outset var(--white-highlight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
 .cell.revealed {
-    background: #eee;
+    background-color: var(--light-gray);
+    border: 1px solid var(--panel-gray);
     cursor: default;
+}
+
+.n-1 { color : var(--num-1); }
+.n-2 { color : var(--num-2); }
+.n-3 { color : var(--num-3); }
+.n-4 { color : var(--num-4); }
+.n-5 { color : var(--num-5); }
+.n-6 { color : var(--num-6); }
+.n-7 { color : var(--num-7); }
+.n-8 { color : var(--num-8); }
+
+.cell.revealed.bomb {
+    background-color: red !important;
 }

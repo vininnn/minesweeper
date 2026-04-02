@@ -1,9 +1,9 @@
 import './style.css'
-import {DifficultConfigs, DifficultLevel, type DifficultSettings} from "./constants/gameConfig.ts";
-import {createBoard} from "./core/boardGenerator.ts";
-import {plantBombs} from "./utils/bombGenerator.ts";
-import {checkWin, revealAllBombs, revealEmptyCells, toggleFlag} from "./core/gameLogic.ts";
-import type {Cell} from "./types/cell.ts";
+import { DifficultConfigs, DifficultLevel, type DifficultSettings } from "./constants/gameConfig.ts";
+import { createBoard } from "./core/boardGenerator.ts";
+import { plantBombs } from "./utils/bombGenerator.ts";
+import { checkWin, revealAllBombs, revealEmptyCells, toggleFlag } from "./core/gameLogic.ts";
+import type { Cell } from "./types/cell.ts";
 
 const gameContainer = document.getElementById("game")!;
 const resetButton = document.getElementById("reset")!;
@@ -108,22 +108,29 @@ function updateUI() {
         row.forEach((cell, c) => {
             const element = cellElements[r][c];
 
+            element.className = "cell";
+
             if (cell.isRevealed) {
                 element.classList.add("revealed");
                 if (cell.isBomb) {
-                    element.textContent = "B";
-                    element.style.background = "red";
+                    element.textContent = "💣";
+                    element.classList.add("bomb")
                 } else {
-                    element.textContent = cell.count > 0 ? cell.count.toString() : "";
+                    if (cell.count > 0) {
+                        element.textContent = cell.count.toString();
+                        element.classList.add(`n-${cell.count}`);
+                    } else {
+                    element.textContent = "";
+                    }
                 }
             } else if (cell.isFlagged) {
                 // Lose and put a wrong flag
                 if (isGameOver && !cell.isBomb) {
-                    element.textContent = "not F";
+                    element.textContent = "❌";
                     element.style.background = "yellow"
                 }
                 else {
-                    element.textContent = "F";
+                    element.textContent = "🚩";
                 }
             } else {
                 element.textContent = ""; // Clear flag

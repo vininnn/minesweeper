@@ -8,8 +8,6 @@
   </head>
   <body>
     <div class="game-buttons">
-      <button id="reset">Reset</button>
-
       <label for="game-difficult">Difficult:</label>
       <select id="game-difficult">
         <option value="BEGINNER">Beginner</option>
@@ -17,11 +15,16 @@
         <option value="EXPERT">Expert</option>
       </select>
     </div>
-    <div class="status-panel">
-      <div>Remaining Flags:<span id="flags">00</span></div>
-      <div>Time: <span id="timer">000</span></div>
+    <div class="main-container">
+      <div class="status-panel">
+        <div id="flags" class="led-display">010</div>
+        <button id="reset">🙂</button>
+        <div id="timer" class="led-display">000</div>
+      </div>
     </div>
-    <div id="game"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <div id="game-border">
+      <div id="game"></div>
+    </div>
+      <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
