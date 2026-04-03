@@ -41,7 +41,7 @@ function createGame(){
     board = createBoard(currentDiff);
     cellElements = [];
 
-    gameContainer.style.gridTemplateColumns = `repeat(${currentDiff.columns}, 40px)`
+    gameContainer.style.gridTemplateColumns = `repeat(${currentDiff.columns}, 35px)`
     gameContainer.innerHTML = "";
 
     renderGameLogic();
