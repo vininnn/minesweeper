@@ -1,4 +1,6 @@
 import './style.css'
+import './components/sevenSegments.css'
+import { createSevenSegmentDisplay } from "./components/sevenSegments.ts";
 import { DifficultConfigs, DifficultLevel, type DifficultSettings } from "./constants/gameConfig.ts";
 import { createBoard } from "./core/boardGenerator.ts";
 import { plantBombs } from "./utils/bombGenerator.ts";
@@ -8,8 +10,9 @@ import type { Cell } from "./types/cell.ts";
 const gameContainer = document.getElementById("game")!;
 const resetButton = document.getElementById("reset")!;
 const diffSelected = document.getElementById("game-difficult") as HTMLSelectElement;
-const timerElement = document.getElementById("timer");
-const flagElement = document.getElementById("flags");
+
+const timerDisplay = createSevenSegmentDisplay(document.getElementById('timer')!, 3);
+const flagDisplay = createSevenSegmentDisplay(document.getElementById('flags')!, 3);
 
 // Game
 let board: Cell[][] = [];
@@ -27,14 +30,12 @@ let remainingFlags = 0;
 
 function createGame(){
     stopTimer();
-    secondsElapsed = 0;
-    timerElement!.textContent = "000"
+    timerDisplay.update(0);
 
     const selectedDiff = diffSelected.value as DifficultLevel;
     currentDiff = DifficultConfigs[selectedDiff];
 
-    remainingFlags = currentDiff.bombCount;
-    flagElement!.textContent = remainingFlags.toString().padStart(3, "0")
+    flagDisplay.update(currentDiff.bombCount);
 
     isGameStarted = false;
     isGameOver = false;
@@ -146,7 +147,7 @@ function startTimer() {
     timeInterval = setInterval(() => {
         if (secondsElapsed < 999) {
             secondsElapsed++;
-            timerElement!.textContent = secondsElapsed.toString().padStart(3, "0");
+            timerDisplay.update(secondsElapsed);
         } else {
             stopTimer();
         }
@@ -170,9 +171,7 @@ function updateFlagCount(wasFlagged: boolean) {
     //flagElement!.textContent = remainingFlags.toString().padStart(3, "0")
 
     // If negative, format as -0X, otherwise, 00X
-    flagElement!.textContent = remainingFlags < 0
-        ? `-${Math.abs(remainingFlags).toString().padStart(2, "0")}`
-        : remainingFlags.toString().padStart(3, "0");
+    flagDisplay.update(remainingFlags);
 }
 
 resetButton.addEventListener("click", createGame);

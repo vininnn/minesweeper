@@ -63,14 +63,9 @@ body {
 
 .led-display {
     background-color: black;
-    color: red;
-    font-family: "Courier New", monospace;
-    font-size: 28px;
-    font-weight: bold;
-    padding: 2px 8px;
-    border: 2px inset var(--shadow-dark);
-    min-width: 60px;
-    text-align: right;
+    padding: 5px;
+    display: flex; /* Para os dígitos ficarem lado a lado */
+    border: 3px inset var(--shadow-dark);
 }
 
 #reset {
@@ -92,7 +87,10 @@ body {
 }
 
 #reset:active {
-    border: 4px inset var(--white-highlight);
+    border-top: 5px solid var(--shadow-dark);
+    border-left: 5px solid var(--shadow-dark);
+    border-bottom: 5px solid var(--white-highlight);
+    border-right: 5px solid var(--white-highlight);
 }
 
 #game-border {

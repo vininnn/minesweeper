@@ -1,0 +1,27 @@
+.seven-segment {
+    position: relative;
+    width: 30px;
+    height: 50px;
+    margin: 0 2px;
+}
+
+.segment {
+    position: absolute;;
+    background-color: #8B0000;
+    border-radius: 2px;
+    transition: background-color 0.1ms;
+}
+
+.segment.lit {
+    background-color: red;
+    box-shadow: 0 0 8px red;
+}
+
+/* Bar positioning (A-G) */
+.seg-a { top: 0; left: 5px; right: 5px; height: 4px; }
+.seg-b { top: 5px; right: 0; bottom: 27px; width: 4px; }
+.seg-c { top: 28px; right: 0; bottom: 5px; width: 4px; }
+.seg-d { bottom: 0; left: 5px; right: 5px; height: 4px; }
+.seg-e { top: 28px; left: 0; bottom: 5px; width: 4px; }
+.seg-f { top: 5px; left: 0; bottom: 27px; width: 4px; }
+.seg-g { top: 23px; left: 5px; right: 5px; height: 4px; }
