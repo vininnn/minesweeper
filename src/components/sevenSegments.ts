@@ -25,6 +25,7 @@ export function createSevenSegmentDisplay(container: HTMLElement, digitCount: nu
         ['a','b','c','d','e','f','g'].forEach(s => {
             const seg = document.createElement('div');
             seg.className = `segment seg-${s}`;
+            seg.dataset.seg = s;
             digitDiv.appendChild(seg);
         })
 
@@ -45,8 +46,10 @@ export function createSevenSegmentDisplay(container: HTMLElement, digitCount: nu
 
                 const segments = digitDiv.querySelectorAll('.segment');
                 segments.forEach(seg => {
-                    const segLetter = seg.className.split('seg-')[1];
-                    seg.classList.toggle('lit', segmentsToLight.includes(segLetter));
+                    const segLetter = (seg as HTMLElement).dataset.seg;
+                    if (segLetter){
+                        seg.classList.toggle('lit', segmentsToLight.includes(segLetter));
+                    }
                 })
             })
         }

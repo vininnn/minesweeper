@@ -35,7 +35,8 @@ function createGame(){
     const selectedDiff = diffSelected.value as DifficultLevel;
     currentDiff = DifficultConfigs[selectedDiff];
 
-    flagDisplay.update(currentDiff.bombCount);
+    remainingFlags = currentDiff.bombCount;
+    flagDisplay.update(remainingFlags);
 
     isGameStarted = false;
     isGameOver = false;
