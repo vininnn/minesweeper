@@ -63,9 +63,13 @@ body {
 
 .led-display {
     background-color: black;
-    padding: 5px;
-    display: flex; /* Para os dígitos ficarem lado a lado */
-    border: 3px inset var(--shadow-dark);
+    padding: 2px;
+    display: flex;
+
+    border-top: 3px solid var(--shadow-dark);
+    border-left: 3px solid var(--shadow-dark);
+    border-bottom: 3px solid var(--white-highlight);
+    border-right: 3px solid var(--white-highlight);
 }
 
 #reset {
@@ -117,8 +121,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    font-family: "Arial Black", Arial, sans-serif;
     font-size: 20px;
     font-weight: bold;
+
     cursor: pointer;
     box-sizing: border-box;
 }

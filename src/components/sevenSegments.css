@@ -7,21 +7,69 @@
 
 .segment {
     position: absolute;
-    background-color: #8B0000;
-    border-radius: 2px;
+    background-color: #3d0000;
     transition: background-color 0.1ms;
 }
 
 .segment.lit {
     background-color: red;
-    box-shadow: 0 0 8px red;
+    z-index: 2
+}
+
+/* Clip Path */
+/* Horizontal (A, G, D) */
+.seg-a, .seg-g, .seg-d {
+    clip-path: polygon(4px 0%, calc(100% - 4px) 0%, 100% 50%, calc(100% - 4px) 100%, 4px 100%, 0% 50%);
+}
+
+/* Vertical (B, C, E, F) */
+.seg-b, .seg-c, .seg-e, .seg-f {
+    clip-path: polygon(0% 4px, 50% 0%, 100% 4px, 100% calc(100% - 4px), 50% 100%, 0% calc(100% - 4px));
 }
 
 /* Bar positioning (A-G) */
-.seg-a { top: 0; left: 5px; right: 5px; height: 4px; }
-.seg-b { top: 5px; right: 0; bottom: 27px; width: 4px; }
-.seg-c { top: 28px; right: 0; bottom: 5px; width: 4px; }
-.seg-d { bottom: 0; left: 5px; right: 5px; height: 4px; }
-.seg-e { top: 28px; left: 0; bottom: 5px; width: 4px; }
-.seg-f { top: 5px; left: 0; bottom: 27px; width: 4px; }
-.seg-g { top: 23px; left: 5px; right: 5px; height: 4px; }
+.seg-a { top: 0; left: 3px; right: 3px; height: 8px; }
+.seg-b { top: 3px; right: 0; bottom: 25px; width: 8px; }
+.seg-c { top: 25px; right: 0; bottom: 3px; width: 8px; }
+.seg-d { bottom: 0; left: 3px; right: 3px; height: 8px; }
+.seg-e { top: 25px; left: 0; bottom: 3px; width: 8px; }
+.seg-f { top: 3px; left: 0; bottom: 25px; width: 8px; }
+.seg-g { top: 20px; left: 3px; right: 3px; height: 8px; }
+
+
+/*!* --- Posicionamento e Espessura (10px) --- *!*/
+
+/*!* Topo *!*/
+/*.seg-a {*/
+/*    top: 0; left: 2px; right: 2px; height: 10px;*/
+/*}*/
+
+/*!* Superior Direito *!*/
+/*.seg-b {*/
+/*    top: 2px; right: 0; height: 25px; width: 10px;*/
+/*}*/
+
+/*!* Inferior Direito *!*/
+/*.seg-c {*/
+/*    bottom: 2px; right: 0; height: 25px; width: 10px;*/
+/*}*/
+
+/*!* Base *!*/
+/*.seg-d {*/
+/*    bottom: 0; left: 2px; right: 2px; height: 10px;*/
+/*}*/
+
+/*!* Inferior Esquerdo *!*/
+/*.seg-e {*/
+/*    bottom: 2px; left: 0; height: 25px; width: 10px;*/
+/*}*/
+
+/*!* Superior Esquerdo *!*/
+/*.seg-f {*/
+/*    top: 2px; left: 0; height: 25px; width: 10px;*/
+/*}*/
+
+/*!* Meio *!*/
+/*.seg-g {*/
+/*    top: 20px; left: 2px; right: 2px; height: 10px;*/
+/*}*/

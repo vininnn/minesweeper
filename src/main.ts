@@ -31,6 +31,7 @@ let remainingFlags = 0;
 function createGame(){
     stopTimer();
     timerDisplay.update(0);
+    secondsElapsed = 0;
 
     const selectedDiff = diffSelected.value as DifficultLevel;
     currentDiff = DifficultConfigs[selectedDiff];
