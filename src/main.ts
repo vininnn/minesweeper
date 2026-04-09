@@ -1,6 +1,7 @@
 import './style.css'
 import './components/sevenSegments.css'
 import { createSevenSegmentDisplay } from "./components/sevenSegments.ts";
+import { createMenu } from "./components/menu/menu.ts";
 import { DifficultConfigs, DifficultLevel, type DifficultSettings } from "./constants/gameConfig.ts";
 import { createBoard } from "./core/boardGenerator.ts";
 import { plantBombs } from "./utils/bombGenerator.ts";
@@ -178,5 +179,7 @@ function updateFlagCount(wasFlagged: boolean) {
 
 resetButton.addEventListener("click", createGame);
 diffSelected.addEventListener("change", createGame)
+
+createMenu();
 
 createGame();
