@@ -18,13 +18,14 @@
 }
 
 body {
+    zoom: 0.95;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     background-color: var(--bg-dark);
-    margin: 0;
+    margin: 20px;
     font-family: Arial, sans-serif;
 }
 
@@ -146,6 +147,35 @@ body {
 .n-7 { color : var(--num-7); }
 .n-8 { color : var(--num-8); }
 
-.cell.revealed.bomb {
+.cell.revealed.exploded {
     background-color: red !important;
+}
+
+.cell.revealed.bomb {
+    background-color: gray;
+}
+
+.difficult-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.diff-btn {
+    background: var(--panel-gray);
+    border: 4px outset var(--white-highlight);
+    padding: 8px 16px;
+    font-family: "Bree Serif", serif;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+}
+
+.diff-btn.active {
+    background: var(--light-gray);
+    border: 4px inset var(--shadow-dark);
+}
+
+.diff-btn:hover:not(.active) {
+    background: var(--white-highlight);
 }

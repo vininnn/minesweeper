@@ -15,18 +15,15 @@
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
-    <div class="game-buttons">
-      <label for="game-difficult">Difficult:</label>
-      <select id="game-difficult">
-        <option value="BEGINNER">Beginner</option>
-        <option value="INTERMEDIATE">Intermediate</option>
-        <option value="EXPERT">Expert</option>
-      </select>
+    <div class="difficult-selector">
+        <button class="diff-btn active" data-level="BEGINNER">Beginner</button>
+        <button class="diff-btn" data-level="INTERMEDIATE">Intermediate</button>
+        <button class="diff-btn" data-level="EXPERT">Expert</button>
     </div>
     <div class="main-container">
       <div class="status-panel">
         <div id="flags" class="led-display">010</div>
-        <button id="reset">🙂</button>
+        <button id="reset"></button>
         <div id="timer" class="led-display">000</div>
       </div>
 

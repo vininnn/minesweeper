@@ -1,16 +1,15 @@
 import './style.css'
-import './components/sevenSegments.css'
-import { createSevenSegmentDisplay } from "./components/sevenSegments.ts";
-import { createMenu } from "./components/menu/menu.ts";
-import { DifficultConfigs, DifficultLevel, type DifficultSettings } from "./constants/gameConfig.ts";
-import { createBoard } from "./core/boardGenerator.ts";
-import { plantBombs } from "./utils/bombGenerator.ts";
-import { checkWin, revealAllBombs, revealEmptyCells, toggleFlag } from "./core/gameLogic.ts";
-import type { Cell } from "./types/cell.ts";
+import './components/display/sevenSegments.css'
+import {createSevenSegmentDisplay} from "./components/display/sevenSegments.ts";
+import {createMenu} from "./components/menu/menu.ts";
+import {DifficultConfigs, DifficultLevel, type DifficultSettings} from "./constants/gameConfig.ts";
+import {createBoard} from "./core/boardGenerator.ts";
+import {plantBombs} from "./utils/bombGenerator.ts";
+import {checkWin, revealAllBombs, revealEmptyCells, toggleFlag} from "./core/gameLogic.ts";
+import type {Cell} from "./types/cell.ts";
 
 const gameContainer = document.getElementById("game")!;
 const resetButton = document.getElementById("reset")!;
-const diffSelected = document.getElementById("game-difficult") as HTMLSelectElement;
 
 const timerDisplay = createSevenSegmentDisplay(document.getElementById('timer')!, 3);
 const flagDisplay = createSevenSegmentDisplay(document.getElementById('flags')!, 3);
@@ -21,6 +20,9 @@ let cellElements: HTMLElement[][] = [];
 let isGameStarted = false;
 let isGameOver = false;
 let currentDiff: DifficultSettings;
+
+let explodedCell : Cell | null = null;
+let currentLevel: DifficultLevel = DifficultLevel.BEGINNER;
 
 // Timer
 let secondsElapsed = 0;
@@ -33,9 +35,10 @@ function createGame(){
     stopTimer();
     timerDisplay.update(0);
     secondsElapsed = 0;
+    resetButton.textContent = "🙂";
+    explodedCell = null;
 
-    const selectedDiff = diffSelected.value as DifficultLevel;
-    currentDiff = DifficultConfigs[selectedDiff];
+    currentDiff = DifficultConfigs[currentLevel];
 
     remainingFlags = currentDiff.bombCount;
     flagDisplay.update(remainingFlags);
@@ -77,6 +80,9 @@ function renderGameLogic() {
                 if (clickedCell.isBomb) {
                     clickedCell.isRevealed = true;
                     isGameOver = true;
+                    explodedCell = clickedCell;
+                    resetButton.textContent = "😵";
+
                     stopTimer();
                     revealAllBombs(board);
                     updateUI()
@@ -87,6 +93,8 @@ function renderGameLogic() {
                     // Check win
                     if (checkWin(board, currentDiff.bombCount)) {
                         isGameOver = true;
+                        resetButton.textContent = "😎";
+
                         stopTimer();
                         setTimeout(() => alert("Congratulations! You Win!"), 100);
                     }
@@ -118,7 +126,11 @@ function updateUI() {
                 element.classList.add("revealed");
                 if (cell.isBomb) {
                     element.textContent = "💣";
-                    element.classList.add("bomb")
+                    element.classList.add("bomb");
+
+                    if (cell === explodedCell) {
+                        element.classList.add("exploded");
+                    }
                 } else {
                     if (cell.count > 0) {
                         element.textContent = cell.count.toString();
@@ -178,8 +190,20 @@ function updateFlagCount(wasFlagged: boolean) {
 }
 
 resetButton.addEventListener("click", createGame);
-diffSelected.addEventListener("change", createGame)
+
+document.querySelectorAll('.diff-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const target = e.target as HTMLButtonElement;
+
+        const levelKey = target.getAttribute('data-level') as keyof typeof DifficultLevel;
+        currentLevel = DifficultLevel[levelKey];
+
+        document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+        target.classList.add('active');
+
+        createGame();
+    });
+});
 
 createMenu();
-
 createGame();
