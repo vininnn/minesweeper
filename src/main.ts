@@ -31,6 +31,9 @@ let timeInterval: number | null = null;
 // Flags
 let remainingFlags = 0;
 
+/**
+ * Bootstraps a new game instance, resetting states, timers and UI.
+ */
 function createGame(){
     //celebrateWin(); for tests
     stopTimer();
@@ -55,6 +58,9 @@ function createGame(){
     renderGameLogic();
 }
 
+/**
+ * Binds click events and handles the core interaction loop for each cell.
+ */
 function renderGameLogic() {
     board.forEach((row, rowIndex) => {
         const elementRow: HTMLElement[] = [];
@@ -69,6 +75,7 @@ function renderGameLogic() {
             cellElement.addEventListener("click", () => {
                 if (isGameOver) return;
 
+                // First click initialization
                 if (!isGameStarted) {
                     startTimer();
                     plantBombs(board, rowIndex, columnIndex, currentDiff.bombCount);
@@ -155,6 +162,10 @@ function updateUI() {
     })
 }
 
+/**
+ * Starts the global timer, updating the 7-segment display every second.
+ * Caps out at 999 seconds.
+ */
 function startTimer() {
     if (timeInterval) return;
 
@@ -169,6 +180,9 @@ function startTimer() {
     }, 1000);
 }
 
+/**
+ * Halts the current timer instance. Called on game over or victory.
+ */
 function stopTimer() {
     if (timeInterval) {
         clearInterval(timeInterval);
@@ -176,6 +190,10 @@ function stopTimer() {
     }
 }
 
+/**
+ * Updates the remaining flags counter and reflects the change on the UI.
+ * @param wasFlagged True if a flag was just placed, false if removed.
+ */
 function updateFlagCount(wasFlagged: boolean) {
     if (!wasFlagged) {
         remainingFlags--;
@@ -189,6 +207,10 @@ function updateFlagCount(wasFlagged: boolean) {
     flagDisplay.update(remainingFlags);
 }
 
+/**
+ * Triggers the canvas-confetti animation from both sides of the screen.
+ * Configured with dark/luxury colors to match the game's aesthetic.
+ */
 function celebrateWin() {
     // @ts-ignore
     const count = 400;

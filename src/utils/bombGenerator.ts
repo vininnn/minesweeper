@@ -1,11 +1,18 @@
 import type { Cell } from "../types/cell.ts";
 
+/**
+ * Plants bombs randomly across the board, ensuring the user's first click is always safe.
+ * @param board
+ * @param clickedRow
+ * @param clickedColumn
+ * @param bombCount
+ */
 export function plantBombs(board: Cell[][], clickedRow: number, clickedColumn: number, bombCount: number) {
     const rows = board.length;
     const columns = board[0].length;
     const safeZone = new Set<number>();
 
-    // Safe zone (click + 8 neighboring cells)
+    // Safe zone (click + 8 surrounding neighbors)
     for (let  r = clickedRow - 1; r <= clickedRow + 1; r++) {
         for (let  c = clickedColumn - 1; c <= clickedColumn + 1; c++) {
             // Checking limits
@@ -33,6 +40,10 @@ export function plantBombs(board: Cell[][], clickedRow: number, clickedColumn: n
     calculateNeighborCounts(board);
 }
 
+/**
+ * Calculates the number of adjacent bombs for every non-bomb cell.
+ * @param board
+ */
 function calculateNeighborCounts(board: Cell[][]) {
     const rows = board.length;
     const columns = board[0].length;
@@ -45,6 +56,7 @@ function calculateNeighborCounts(board: Cell[][]) {
             // Check on neighbors
             // dr = delta row
             // dc = delta column
+            // Iterate over the 3x3 grid centered on the current cell
             for (let dr = -1; dr <= 1; dr++){
                 for (let dc = -1; dc <= 1; dc++) {
                     // nr = neighbor row

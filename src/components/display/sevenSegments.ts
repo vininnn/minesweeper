@@ -1,5 +1,9 @@
 import './sevenSegments.css'
 
+/**
+ * Maps characters to their corresponding active segment.
+ * On a standard 7-segment display (a-g).
+ */
 const digitMap : { [key: string]: string[] } = {
     '0': ['a', 'b', 'c', 'd', 'e', 'f'],
     '1': ['b', 'c'],
@@ -11,13 +15,20 @@ const digitMap : { [key: string]: string[] } = {
     '7': ['a', 'b', 'c'],
     '8': ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
     '9': ['a', 'b', 'c', 'd', 'f', 'g'],
-    '-': ['g'], // Negative numbers
+    '-': ['g'], // Negative numbers, negative flags count
 }
 
+/**
+ * Initializes a 7-segment digital display in the DOM.
+ * @param container The HTML element that will hold the digits.
+ * @param digitCount The total number of digits to render.
+ * @returns An object with an `update` method to change the displayed value.
+ */
 export function createSevenSegmentDisplay(container: HTMLElement, digitCount: number) {
     container.innerHTML = '';
     const digits : HTMLElement[] = []
 
+    // Generate DOM elements for each digit and its 7 segments
     for (let i=0; i < digitCount; i++) {
         const digitDiv = document.createElement('div');
         digitDiv.className = 'seven-segment';
@@ -34,12 +45,19 @@ export function createSevenSegmentDisplay(container: HTMLElement, digitCount: nu
     }
 
     return {
+        /**
+         * Updates the display to show the provided number.
+         * Handles negative numbers and pads with leading zeros.
+         * @param value
+         */
         update: (value: number) => {
             const isNegative = value < 0;
             const absValue = Math.abs(value).toString().padStart(isNegative ? digitCount -1 : digitCount, '0');
             const strValue = (isNegative ? '-' : '') + absValue;
+            // Ensure we don't exceed the digit count
             const displayString = (strValue.slice(-digitCount));
 
+            // Toggle the 'lit' class for segments based on the current character
             digits.forEach((digitDiv, idx) => {
                 const char = displayString[idx];
                 const segmentsToLight = digitMap[char] || [];

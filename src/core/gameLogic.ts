@@ -1,6 +1,12 @@
 import type { Cell } from "../types/cell.ts";
 
-// Flood Fill
+/**
+ * Flood fill algorithm to recursively reveal connected empty cells.
+ * Stops when it hits a cell with a number (count > 0).
+ * @param board
+ * @param row
+ * @param column
+ */
 export function revealEmptyCells(board: Cell[][], row: number, column: number) {
     const rows = board.length;
     const columns = board[0].length;
@@ -9,9 +15,11 @@ export function revealEmptyCells(board: Cell[][], row: number, column: number) {
     if (row < 0 || row >= rows || column < 0 || column >= columns) return;
 
     const cell = board[row][column];
+    // Already processed or restricted
     if (cell.isRevealed || cell.isFlagged || cell.isBomb) return;
 
     cell.isRevealed = true;
+
     // If count > 0, stop
     if (cell.count > 0) return;
 
@@ -24,13 +32,19 @@ export function revealEmptyCells(board: Cell[][], row: number, column: number) {
     }
 }
 
-// Flag
+/**
+ * Toggles the flagged state of an unrevealed cell.
+ * @param cell
+ */
 export function toggleFlag(cell: Cell) {
     if (cell.isRevealed) return;
     cell.isFlagged = !cell.isFlagged;
 }
 
-// Bomb reveal - Game Over
+/**
+ * Reveals all unflagged bombs. Triggered on Game Over.
+ * @param board
+ */
 export function revealAllBombs(board: Cell[][]) {
     const rows = board.length;
     const columns = board[0].length;
@@ -45,7 +59,11 @@ export function revealAllBombs(board: Cell[][]) {
     }
 }
 
-// Win Condition
+/**
+ * Checks if the win condition is met (all non-bombs cells are revealed).
+ * @param board
+ * @param totalBombs
+ */
 export function checkWin(board: Cell[][], totalBombs: number): boolean {
     let revealedCells = 0;
     const totalCells = board.length * board[0].length;

@@ -6,6 +6,7 @@
     --white-highlight: #DEDEDE; /*Light tone*/
     --light-gray :#D9D9D9; /*Light tone*/
 
+    /* Custom Tones for UI elements */
     --bg-brown: #262626;
     --darker-panel-gray: #7D858C;
     --darker-darker-panel-gray: #425059;
@@ -32,9 +33,11 @@
     --num-7: #555555; /*Black*/
     --num-8: #b5b5b5; /*Gray*/
 
+    /* Sizing */
     --cell-size: 34px;
 }
 
+/* Global Styles & Layout */
 body {
     display: flex;
     flex-direction: column;
@@ -44,12 +47,7 @@ body {
     background-color: var(--bg-brown);
     margin: 0;
     font-family: Arial, sans-serif;
-    overflow: hidden;
-}
-
-.game-buttons {
-    margin-bottom: 20px;
-    color: var(--white-highlight);
+    overflow: hidden; /* Prevents scrollbars */
 }
 
 .main-container {
@@ -86,42 +84,7 @@ body {
     border-right: 4px solid var(--darker-light-gray);
 }
 
-.led-display {
-    background-color: black;
-    padding: 2px;
-    display: flex;
-
-    border-top: 3px solid var(--bg-dark);
-    border-left: 3px solid var(--bg-dark);
-    border-bottom: 3px solid var(--darker-light-gray);
-    border-right: 3px solid var(--darker-light-gray);
-}
-
-#reset {
-    width: 45px;
-    height: 45px;
-
-    background-color: var(--darker-darker-panel-gray);
-    border-top: 4px solid var(--darker-light-gray);
-    border-left: 4px solid var(--darker-light-gray);
-    border-right: 4px solid var(--bg-dark);
-    border-bottom: 4px solid var(--bg-dark);
-
-    font-size: 24px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-}
-
-#reset:active {
-    border-top: 4px solid var(--bg-dark);
-    border-left: 4px solid var(--bg-dark);
-    border-bottom: 4px solid var(--darker-light-gray);
-    border-right: 4px solid var(--darker-light-gray);
-}
-
+/* Game Board & Cells*/
 #game-border {
     width: fit-content;
     border: 4px solid;
@@ -163,6 +126,15 @@ body {
     cursor: default;
 }
 
+.cell.revealed.exploded {
+    background-color: var(--num-5) !important;
+}
+
+.cell.revealed.bomb {
+    background-color: var(--darker-darker-panel-gray);
+}
+
+/* Cell Number Utility Classes */
 .n-1 { color : var(--num-1); }
 .n-2 { color : var(--num-2); }
 .n-3 { color : var(--num-3); }
@@ -172,14 +144,38 @@ body {
 .n-7 { color : var(--num-7); }
 .n-8 { color : var(--num-8); }
 
-.cell.revealed.exploded {
-    background-color: var(--num-5) !important;
+/* UI Components (Buttons & Selectors) */
+.game-buttons {
+    margin-bottom: 20px;
+    color: var(--white-highlight);
 }
 
-.cell.revealed.bomb {
+#reset {
+    width: 45px;
+    height: 45px;
+
     background-color: var(--darker-darker-panel-gray);
+    border-top: 4px solid var(--darker-light-gray);
+    border-left: 4px solid var(--darker-light-gray);
+    border-right: 4px solid var(--bg-dark);
+    border-bottom: 4px solid var(--bg-dark);
+
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
 }
 
+#reset:active {
+    border-top: 4px solid var(--bg-dark);
+    border-left: 4px solid var(--bg-dark);
+    border-bottom: 4px solid var(--darker-light-gray);
+    border-right: 4px solid var(--darker-light-gray);
+}
+
+/* Difficulty Selector */
 .difficult-selector {
     display: flex;
     gap: 10px;
@@ -204,7 +200,7 @@ body {
     border-bottom: 4px solid var(--bg-dark);
 }
 
-.diff-btn.active {
+.diff-btn.active, .diff-btn:hover:not(.active) {
     background: var(--darker-light-gray);
     color: var(--bg-dark);
 
@@ -214,12 +210,14 @@ body {
     border-bottom: 4px solid var(--darker-darker-panel-gray);
 }
 
-.diff-btn:hover:not(.active) {
-    background: var(--darker-light-gray);
-    color: var(--bg-dark);
+/* Led Display */
+.led-display {
+    background-color: black;
+    padding: 2px;
+    display: flex;
 
-    border-top: 4px solid var(--lighter-dark-gray);
-    border-left: 4px solid var(--lighter-dark-gray);
-    border-right: 4px solid var(--darker-darker-panel-gray);
-    border-bottom: 4px solid var(--darker-darker-panel-gray);
+    border-top: 3px solid var(--bg-dark);
+    border-left: 3px solid var(--bg-dark);
+    border-bottom: 3px solid var(--darker-light-gray);
+    border-right: 3px solid var(--darker-light-gray);
 }
