@@ -48,7 +48,7 @@ function createGame(){
     board = createBoard(currentDiff);
     cellElements = [];
 
-    gameContainer.style.gridTemplateColumns = `repeat(${currentDiff.columns}, 35px)`
+    gameContainer.style.gridTemplateColumns = `repeat(${currentDiff.columns}, 34px)`
     gameContainer.innerHTML = "";
 
     renderGameLogic();
@@ -86,7 +86,6 @@ function renderGameLogic() {
                     stopTimer();
                     revealAllBombs(board);
                     updateUI()
-                    setTimeout(() => alert("Not this time... Try again!"), 100);
                 } else {
                     revealEmptyCells(board, rowIndex, columnIndex);
                     updateUI();
@@ -96,7 +95,7 @@ function renderGameLogic() {
                         resetButton.textContent = "😎";
 
                         stopTimer();
-                        setTimeout(() => alert("Congratulations! You Win!"), 100);
+                        celebrateWin();
                     }
                 }
             })
@@ -142,8 +141,7 @@ function updateUI() {
             } else if (cell.isFlagged) {
                 // Lose and put a wrong flag
                 if (isGameOver && !cell.isBomb) {
-                    element.textContent = "❌";
-                    element.style.background = "yellow"
+                    element.style.background = "#fae6a8"
                 }
                 else {
                     element.textContent = "🚩";
@@ -187,6 +185,32 @@ function updateFlagCount(wasFlagged: boolean) {
 
     // If negative, format as -0X, otherwise, 00X
     flagDisplay.update(remainingFlags);
+}
+
+function celebrateWin() {
+    // @ts-ignore
+    const count = 300;
+    const defaults = {
+        origin: { y: 0.9 },
+        spread: 80,
+        ticks: 200,
+        gravity: 1.2,
+        colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+    };
+    // @ts-ignore Left side
+    confetti({
+        ...defaults,
+        particleCount: count,
+        angle: 80,
+        origin: { x: 0.1, y: 1 }
+    });
+    // @ts-ignore Right side
+    confetti({
+        ...defaults,
+        particleCount: count,
+        angle: 100,
+        origin: { x: 0.9, y: 1 }
+    });
 }
 
 resetButton.addEventListener("click", createGame);
