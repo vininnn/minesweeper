@@ -85,7 +85,7 @@ Since the project is written in TypeScript, files need to be transpiled to JavaS
 (usually http://localhost:5173)
 
 ##   📷 Screenshots
-### Gameplay
+### Gameplay 🎮
 
 <p align="center"> 
     <img src=".github/assets/playing-pic.png" width="30%" alt="Playing Game"/>
@@ -94,7 +94,7 @@ Since the project is written in TypeScript, files need to be transpiled to JavaS
 
 |                                               Beginner                                               |                                                 Intermediate                                                 |                                              Expert                                              |
 |:----------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------:|
-| <p align="center"> <img src=".github/assets/beginner-pic.png" width="75%" alt="Beginner Mode"/> </p> | <p align="center"> <img src=".github/assets/intermediate-pic.png" width="60%" alt="Intermediate Mode"/> </p> | <p align="center"> <img src=".github/assets/expert-pic.png" width="60%" alt="Expert Mode"/> </p> |
+| <p align="center"> <img src=".github/assets/beginner-pic.png" width="80%" alt="Beginner Mode"/> </p> | <p align="center"> <img src=".github/assets/intermediate-pic.png" width="60%" alt="Intermediate Mode"/> </p> | <p align="center"> <img src=".github/assets/expert-pic.png" width="70%" alt="Expert Mode"/> </p> |
 
 ### Victory 🎉
 
