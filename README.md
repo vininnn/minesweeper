@@ -20,7 +20,7 @@
 
 ## 🚀 Live Demo
 
-👉 *https://mellifluous-banoffee-b8bd69.netlify.app/*
+👉 *https://minesweeper-vininnn.netlify.app/*
 
 ---
 
@@ -88,17 +88,17 @@ Since the project is written in TypeScript, files need to be transpiled to JavaS
 ### Gameplay
 
 <p align="center"> 
-    <img src=".github/assets/playing-pic.png" width="15%" alt="Playing Game"/>
-    <img src=".github/assets/lose-pic.png" width="14.3%" alt="Lost Game"/> 
+    <img src=".github/assets/playing-pic.png" width="30%" alt="Playing Game"/>
+    <img src=".github/assets/lose-pic.png" width="28.5%" alt="Lost Game"/> 
 </p>
 
 |                                               Beginner                                               |                                                 Intermediate                                                 |                                              Expert                                              |
 |:----------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------:|
-| <p align="center"> <img src=".github/assets/beginner-pic.png" width="50%" alt="Beginner Mode"/> </p> | <p align="center"> <img src=".github/assets/intermediate-pic.png" width="40%" alt="Intermediate Mode"/> </p> | <p align="center"> <img src=".github/assets/expert-pic.png" width="40%" alt="Expert Mode"/> </p> |
+| <p align="center"> <img src=".github/assets/beginner-pic.png" width="75%" alt="Beginner Mode"/> </p> | <p align="center"> <img src=".github/assets/intermediate-pic.png" width="60%" alt="Intermediate Mode"/> </p> | <p align="center"> <img src=".github/assets/expert-pic.png" width="60%" alt="Expert Mode"/> </p> |
 
 ### Victory 🎉
 
-<p align="center"> <img src=".github/assets/victory-video.gif" width="30%" alt="Victory Video"/> </p>
+<p align="center"> <img src=".github/assets/victory-video.gif" width="75%" alt="Victory Video"/> </p>
 
 ---
 
