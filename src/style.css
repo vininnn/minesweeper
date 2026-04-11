@@ -221,3 +221,34 @@ body {
     border-bottom: 3px solid var(--darker-light-gray);
     border-right: 3px solid var(--darker-light-gray);
 }
+
+/* Github */
+.github-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.github-btn img {
+    width: 40px;
+    height: 40px;
+    filter: invert(100%) opacity(0.8);
+    transition: filter 0.3s ease;
+}
+
+.github-btn:hover {
+    transform: scale(1.1);
+}
+
+.github-btn:hover img {
+    filter: invert(100%) opacity(1);
+}
+
+@media (max-width: 600px) {
+    .github-btn img {
+        width: 30px;
+        height: 30px;
+    }
+}
