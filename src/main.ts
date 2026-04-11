@@ -1,7 +1,7 @@
 import './style.css'
 import './components/display/sevenSegments.css'
 import {createSevenSegmentDisplay} from "./components/display/sevenSegments.ts";
-import {createMenu} from "./components/menu/menu.ts";
+//import {createMenu} from "./components/menu/menu.ts";
 import {DifficultConfigs, DifficultLevel, type DifficultSettings} from "./constants/gameConfig.ts";
 import {createBoard} from "./core/boardGenerator.ts";
 import {plantBombs} from "./utils/bombGenerator.ts";
@@ -32,6 +32,7 @@ let timeInterval: number | null = null;
 let remainingFlags = 0;
 
 function createGame(){
+    //celebrateWin(); for tests
     stopTimer();
     timerDisplay.update(0);
     secondsElapsed = 0;
@@ -128,6 +129,7 @@ function updateUI() {
                     element.classList.add("bomb");
 
                     if (cell === explodedCell) {
+                        element.textContent = "💥";
                         element.classList.add("exploded");
                     }
                 } else {
@@ -189,27 +191,29 @@ function updateFlagCount(wasFlagged: boolean) {
 
 function celebrateWin() {
     // @ts-ignore
-    const count = 300;
+    const count = 400;
     const defaults = {
         origin: { y: 0.9 },
         spread: 80,
         ticks: 200,
-        gravity: 1.2,
-        colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+        gravity: 0.6,
+        //colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'] // rgb+ default
+        //colors: ['#D4AF37', '#F5E6A3', '#C9A227', '#FFFFFF', '#A8A8A8'] // luxury colors
+        colors: ['#B8963A', '#8C6A3B', '#3B6E8F', '#A0A4A8', '#3A3F45'] // dark
     };
     // @ts-ignore Left side
     confetti({
         ...defaults,
         particleCount: count,
         angle: 80,
-        origin: { x: 0.1, y: 1 }
+        origin: { x: 0.1, y: 1.1 }
     });
     // @ts-ignore Right side
     confetti({
         ...defaults,
         particleCount: count,
         angle: 100,
-        origin: { x: 0.9, y: 1 }
+        origin: { x: 0.9, y: 1.1 }
     });
 }
 
@@ -229,5 +233,5 @@ document.querySelectorAll('.diff-btn').forEach(btn => {
     });
 });
 
-createMenu();
+//createMenu();
 createGame();

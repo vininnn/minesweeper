@@ -173,7 +173,7 @@ body {
 .n-8 { color : var(--num-8); }
 
 .cell.revealed.exploded {
-    background-color: #b44242 !important;
+    background-color: var(--num-5) !important;
 }
 
 .cell.revealed.bomb {
@@ -188,7 +188,7 @@ body {
 
 .diff-btn {
     flex: 1;
-    background: var(--darker-darker-panel-gray);
+    background: var(--shadow-dark);
     padding: 8px 0;
     width: 7.8rem;
 
@@ -198,8 +198,8 @@ body {
 
     cursor: pointer;
     color: var(--bg-dark);
-    border-top: 4px solid var(--lighter-dark-gray);
-    border-left: 4px solid var(--lighter-dark-gray);
+    border-top: 4px solid var(--darker-darker-panel-gray);
+    border-left: 4px solid var(--darker-darker-panel-gray);
     border-right: 4px solid var(--bg-dark);
     border-bottom: 4px solid var(--bg-dark);
 }
@@ -210,11 +210,16 @@ body {
 
     border-top: 4px solid var(--lighter-dark-gray);
     border-left: 4px solid var(--lighter-dark-gray);
-    border-right: 4px solid var(--bg-dark);
-    border-bottom: 4px solid var(--bg-dark);
+    border-right: 4px solid var(--darker-darker-panel-gray);
+    border-bottom: 4px solid var(--darker-darker-panel-gray);
 }
 
 .diff-btn:hover:not(.active) {
     background: var(--darker-light-gray);
     color: var(--bg-dark);
+
+    border-top: 4px solid var(--lighter-dark-gray);
+    border-left: 4px solid var(--lighter-dark-gray);
+    border-right: 4px solid var(--darker-darker-panel-gray);
+    border-bottom: 4px solid var(--darker-darker-panel-gray);
 }
