@@ -84,6 +84,8 @@ Since the project is written in TypeScript, files need to be transpiled to JavaS
 5. Open your browser at the URL provided in the terminal
 (usually http://localhost:5173)
 
+---
+
 ##   📷 Screenshots
 ### Gameplay 🎮
 
